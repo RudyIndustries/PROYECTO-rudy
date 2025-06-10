@@ -1,1 +1,504 @@
-<h1>HOLA</h1>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soluciones Numéricas Avanzadas</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto+Slab:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+        }
+        
+        body {
+            font-family: 'Roboto Slab', serif;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            color: #333;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(44, 62, 80, 0.9), rgba(44, 62, 80, 0.9)), url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1950') center/cover;
+            color: white;
+            padding: 100px 0;
+            margin-bottom: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1950') center/cover;
+            filter: blur(5px);
+            z-index: -2;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            max-width: 700px;
+            margin: 0 auto;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .section-title {
+            position: relative;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--secondary-color);
+            border-radius: 2px;
+        }
+        
+        .method-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: all 0.4s ease;
+            margin-bottom: 40px;
+            border: none;
+        }
+        
+        .method-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--dark-color));
+            color: white;
+            padding: 20px;
+            border: none;
+        }
+        
+        .card-body {
+            padding: 30px;
+        }
+        
+        .result-highlight {
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        }
+        
+        .solution-img {
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            margin: 25px 0;
+            transition: all 0.4s ease;
+            border: 1px solid #eee;
+        }
+        
+        .solution-img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .table-custom {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin: 25px 0;
+        }
+        
+        .table-custom thead {
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            color: white;
+        }
+        
+        .table-custom th {
+            font-weight: 600;
+        }
+        
+        .explanation-box {
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--secondary-color);
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+            margin: 25px 0;
+        }
+        
+        .method-icon {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+        
+        .footer {
+            background: linear-gradient(135deg, var(--primary-color), var(--dark-color));
+            color: white;
+            padding: 40px 0 20px;
+            margin-top: 60px;
+        }
+        
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .scroll-top.show {
+            opacity: 1;
+        }
+        
+        .bounce {
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-20px);}
+            60% {transform: translateY(-10px);}
+        }
+        
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+        
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Scroll to top button -->
+    <div class="scroll-top" id="scrollTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero text-center">
+        <div class="container">
+            <h1 class="animate__animated animate__fadeInDown">Soluciones Numéricas Avanzadas</h1>
+            <p class="animate__animated animate__fadeIn animate__delay-1s">Interpolación, Aproximación y Modelado Matemático</p>
+            <a href="#methods" class="btn btn-primary btn-lg mt-4 animate__animated animate__fadeInUp animate__delay-2s">
+                Ver Soluciones <i class="fas fa-arrow-down ms-2"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container" id="methods">
+        <!-- Método de Newton -->
+        <div class="method-card animate-on-scroll" id="newton">
+            <div class="card-header">
+                <h2 class="mb-0"><i class="fas fa-calculator me-3"></i>Método de Newton</h2>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <h3 class="section-title">Interpolación Polinomial</h3>
+                        <p>El método de Newton para interpolación polinomial es una técnica que permite construir un polinomio que pasa exactamente por un conjunto de puntos dados. Es especialmente útil cuando se añaden nuevos puntos, ya que permite actualizar el polinomio sin recalcularlo completamente.</p>
+                        
+                        <div class="explanation-box">
+                            <p>En este caso, utilizamos los datos de crecimiento bacteriano a lo largo del tiempo para construir un polinomio interpolador que nos permite estimar la población en días no medidos.</p>
+                        </div>
+                        
+                        <h4>Datos de Crecimiento Bacteriano</h4>
+                        <div class="table-responsive">
+                            <table class="table table-custom table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Días</th>
+                                        <th>Población Bacteriana</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>30</td><td>1000</td></tr>
+                                    <tr><td>60</td><td>1500</td></tr>
+                                    <tr><td>90</td><td>2000</td></tr>
+                                    <tr><td>120</td><td>2500</td></tr>
+                                    <tr><td>150</td><td>2800</td></tr>
+                                    <tr><td>180</td><td>3200</td></tr>
+                                    <tr><td>210</td><td>3500</td></tr>
+                                    <tr><td>240</td><td>3700</td></tr>
+                                    <tr><td>270</td><td>3900</td></tr>
+                                    <tr><td>300</td><td>3800</td></tr>
+                                    <tr><td>330</td><td>3500</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="result-highlight">
+                            <h3><i class="fas fa-flask me-2"></i>Resultado Obtenido</h3>
+                            <p class="display-6">Para el día 100: <strong>2214.62</strong> bacterias</p>
+                            <p class="mb-0">El polinomio interpolador nos permite estimar con precisión el tamaño de la población en puntos intermedios.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <img src="solucion1.png" alt="Solución Método de Newton" class="img-fluid solution-img">
+                        <div class="mt-4">
+                            <h4>Interpretación del Resultado</h4>
+                            <p>La población bacteriana estimada de 2214.62 en el día 100 muestra un crecimiento constante durante los primeros meses del estudio, siguiendo un patrón predecible que se ajusta bien al modelo polinomial.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Método de Lagrange -->
+        <div class="method-card animate-on-scroll" id="lagrange">
+            <div class="card-header">
+                <h2 class="mb-0"><i class="fas fa-chart-line me-3"></i>Método de Lagrange</h2>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <h3 class="section-title">Interpolación de Funciones</h3>
+                        <p>El método de Lagrange es otra técnica para interpolación polinomial que construye un polinomio único de grado mínimo que pasa exactamente por un conjunto dado de puntos. Utiliza polinomios base de Lagrange que valen 1 en un punto y 0 en los demás.</p>
+                        
+                        <div class="explanation-box">
+                            <p>En este caso, aplicamos el método para modelar la propagación de una infección en diferentes momentos del tiempo, permitiéndonos estimar el número de infectados en días no medidos.</p>
+                        </div>
+                        
+                        <h4>Datos de Propagación de Infección</h4>
+                        <div class="table-responsive">
+                            <table class="table table-custom table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Días</th>
+                                        <th>Infectados</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>30</td><td>160</td></tr>
+                                    <tr><td>60</td><td>180</td></tr>
+                                    <tr><td>90</td><td>200</td></tr>
+                                    <tr><td>120</td><td>340</td></tr>
+                                    <tr><td>150</td><td>400</td></tr>
+                                    <tr><td>180</td><td>450</td></tr>
+                                    <tr><td>210</td><td>500</td></tr>
+                                    <tr><td>240</td><td>600</td></tr>
+                                    <tr><td>270</td><td>400</td></tr>
+                                    <tr><td>300</td><td>500</td></tr>
+                                    <tr><td>320</td><td>600</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="result-highlight">
+                            <h3><i class="fas fa-virus me-2"></i>Resultado Obtenido</h3>
+                            <p class="display-6">Para el día 170: <strong>419.01</strong> infectados</p>
+                            <p class="mb-0">La interpolación de Lagrange proporciona una estimación precisa en puntos intermedios de la curva de infección.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <img src="solucion2.png" alt="Solución Método de Lagrange" class="img-fluid solution-img">
+                        <div class="mt-4">
+                            <h4>Interpretación del Resultado</h4>
+                            <p>El valor de 419.01 infectados en el día 170 sugiere que la infección estaba en su fase de crecimiento acelerado, antes de alcanzar su pico máximo alrededor del día 240.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Splines Cúbicos -->
+        <div class="method-card animate-on-scroll" id="splines">
+            <div class="card-header">
+                <h2 class="mb-0"><i class="fas fa-project-diagram me-3"></i>Splines Cúbicos</h2>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <h3 class="section-title">Interpolación Segmentada</h3>
+                        <p>Los splines cúbicos son funciones definidas por segmentos mediante polinomios de tercer grado que garantizan continuidad y suavidad en los puntos de unión. Son especialmente útiles cuando la relación entre variables no sigue un único patrón polinomial.</p>
+                        
+                        <div class="explanation-box">
+                            <p>Aplicamos splines cúbicos para modelar la evolución de la informalidad laboral a lo largo de los años, proporcionando una estimación más precisa que los métodos de interpolación global.</p>
+                        </div>
+                        
+                        <h4>Datos de Informalidad Laboral (%)</h4>
+                        <div class="table-responsive">
+                            <table class="table table-custom table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Año</th>
+                                        <th>Informalidad (%)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>2020</td><td>70</td></tr>
+                                    <tr><td>2021</td><td>76</td></tr>
+                                    <tr><td>2022</td><td>78</td></tr>
+                                    <tr><td>2023</td><td>80</td></tr>
+                                    <tr><td>2024</td><td>84</td></tr>
+                                    <tr><td>2026</td><td>85</td></tr>
+                                    <tr><td>2027</td><td>86</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="result-highlight">
+                            <h3><i class="fas fa-chart-pie me-2"></i>Resultado Obtenido</h3>
+                            <p class="display-6">Para el año 2025: <strong>85.19%</strong> de informalidad</p>
+                            <p class="mb-0">Los splines cúbicos ofrecen una aproximación más suave y realista que otros métodos de interpolación.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <img src="solucion3.png" alt="Solución Splines Cúbicos" class="img-fluid solution-img">
+                        <div class="mt-4">
+                            <h4>Interpretación del Resultado</h4>
+                            <p>El valor de 85.19% para 2025 indica una tendencia creciente en la informalidad laboral, aunque con una tasa de crecimiento que comienza a estabilizarse respecto a años anteriores.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Conclusión -->
+        <div class="row mt-5 animate-on-scroll">
+            <div class="col-12">
+                <div class="card border-0 shadow">
+                    <div class="card-body p-4">
+                        <h3 class="text-center mb-4"><i class="fas fa-lightbulb me-3"></i>Conclusión de los Métodos</h3>
+                        <div class="row">
+                            <div class="col-md-4 mb-4">
+                                <div class="text-center p-3 h-100" style="border-radius: 12px; background-color: #e3f2fd;">
+                                    <i class="fas fa-calculator method-icon"></i>
+                                    <h4>Método de Newton</h4>
+                                    <p>Ideal para conjuntos de datos donde se pueden añadir nuevos puntos sin recalcular todo el polinomio. Excelente para extrapolación a corto plazo.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <div class="text-center p-3 h-100" style="border-radius: 12px; background-color: #e8f5e9;">
+                                    <i class="fas fa-chart-line method-icon"></i>
+                                    <h4>Método de Lagrange</h4>
+                                    <p>Perfecto para interpolación cuando se necesita un polinomio exacto que pase por todos los puntos. Fácil de entender e implementar.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <div class="text-center p-3 h-100" style="border-radius: 12px; background-color: #fff3e0;">
+                                    <i class="fas fa-project-diagram method-icon"></i>
+                                    <h4>Splines Cúbicos</h4>
+                                    <p>La mejor opción cuando se necesita suavidad en la curva y los datos muestran diferentes comportamientos en distintos intervalos.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <h3>Soluciones Numéricas Avanzadas</h3>
+                    <p>Modelado matemático y análisis de datos para resolver problemas complejos.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <p class="mb-0">Desarrollado con Bootstrap 5 y técnicas de interpolación numérica</p>
+                    <p>© 2023 Todos los derechos reservados</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <!-- Custom Script -->
+    <script>
+        // Scroll to top button
+        const scrollTopButton = document.getElementById('scrollTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollTopButton.classList.add('show');
+            } else {
+                scrollTopButton.classList.remove('show');
+            }
+        });
+        
+        scrollTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Animation on scroll
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.animate-on-scroll');
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.3;
+                
+                if (elementPosition < screenPosition) {
+                    element.classList.add('visible');
+                }
+            });
+        };
+        
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+        
+        // Initialize animations
+        document.addEventListener('DOMContentLoaded', () => {
+            animateOnScroll();
+        });
+    </script>
+</body>
+</html>
